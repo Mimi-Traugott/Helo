@@ -1,23 +1,31 @@
 import React from 'react';
-import Auth from './Components/Auth/Auth';
-import Dashboard from './Components/Dashboard/Dashboard';
-import Form from './Components/Form/Form';
+import {Provider} from 'react-redux'
+import {HashRouter} from 'react-router-dom'
+import store from './ducks/store'
+import {withRouter} from 'react-router-dom'
+import routes from './routes';
 import Nav from './Components/Nav/Nav';
-import Post from './Components/Post/Post';
 import './App.css';
 
-function App() {
+function App(props) {
   return (
+    <Provider store={store}>
+    <HashRouter>
     <div className="App">
-
-      <Auth/>
-      <Dashboard/>
-      <Form/>
+      {props.location.pathname === '/' || 
+      props.location.pathname === '/components/nav/nav'
+      ? (<>
+      {routes}
+      </>)
+      : (<>
       <Nav/>
-      <Post/>
-      
+      {routes}
+      </>)}
     </div>
+    </HashRouter>
+    </Provider>
+    
   );
 }
 
-export default App;
+export default withRouter(App);
