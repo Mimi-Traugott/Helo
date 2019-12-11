@@ -18,5 +18,4 @@ app.post('/api/login', ctrl.login)
 
 
 const port = SERVER_PORT;
-console.log(port);
 app.listen(port, () => console.log(`up and running on ${port}`));

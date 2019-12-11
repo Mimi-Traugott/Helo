@@ -3,22 +3,15 @@ import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 
 class Nav extends Component {
-    
-
     render(){
         return(
             <div>
-                <Link to='/dashboard'>
-                <button>Home</button>
-                </Link>
-
-                <Link to='/post/:postid'>
-                <button>New Post</button>
-                </Link>
-                
-                <Link to='/'>
-                <button>Logout</button>
-                </Link>       
+                <Link to='/dashboard'>Home</Link>
+                <Link to='/post/:postid'>New Post</Link>
+                <Link to='/'>Logout</Link> 
+                  
+                <p>{this.props.users.profile_pic}</p>
+                <p>{this.props.users.username}</p>    
             </div>
         )
     }

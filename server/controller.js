@@ -6,16 +6,16 @@ module.exports={
         const {session} = req
         const db = req.app.get('db')
 
-        let user = await db.auth.check_user(username)
-        user = user[0]
-        if(!user) {
+        let users = await db.auth.check_user(username)
+        users = users[0]
+        if(!users) {
             return res.status(400).send('Email not found')
         }
-        const authenticated = bcrypt.compareSync(password, user.password);
+        const authenticated = bcrypt.compareSync(password, users.password);
         if(authenticated){
-            delete user.password
-            session.user=user;
-            res.status(202).send(session.user)
+            delete users.password
+            session.users=users;
+            res.status(202).send(session.users)
         }else {
             res.status(401).send('Incorrect Password')
         }
@@ -25,21 +25,21 @@ module.exports={
         const {session}= req
         const db = req.app.get('db');
 
-        let user = await db.check_user(username);
-        user=user[0]
-        if (user){
+        let users = await db.check_user(username);
+        users=users[0]
+        if (users){
             return res.status(400).send('user already exists')
         }
         const salt = bcrypt.genSaltSync(10)
         const hash = bcrypt.hashSync(password,salt)
         let newUser = await db.register_user({username, hash})
         newUser = newUser[0]
-        session.user = newUser;
-        res.status(200).send(session.user)
+        session.users = newUser;
+        res.status(200).send(session.users)
     },
     getUser: (req,res) => {
-        if(req.session.user){
-        res.status(200).send(req.session.user)
+        if(req.session.users){
+        res.status(200).send(req.session.users)
     }else{
         res.status(200).send('')
     }

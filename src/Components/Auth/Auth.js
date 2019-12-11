@@ -1,9 +1,11 @@
 import React, {Component} from 'react'
+import {connect} from 'react-redux'
+import {getUser} from '../../ducks/reducer'
 import axios from 'axios';
 
 class Auth extends Component {
-    constructor(){
-        super()
+    constructor(props){
+        super(props)
         this.state={
             username: '',
             password: ''
@@ -21,7 +23,7 @@ class Auth extends Component {
         {username: this.state.username,
         password: this.state.password}).then(res => {
             this.props.getUser(res.data)
-            this.props.history.push('/dash')
+            this.props.history.push('/dashboard')
         })
     }
 
@@ -44,4 +46,4 @@ class Auth extends Component {
 
 }
 
-export default Auth
+export default connect(null, {getUser})(Auth)
