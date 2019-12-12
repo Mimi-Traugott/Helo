@@ -11,6 +11,11 @@ class Auth extends Component {
             password: ''
         }
     }
+    handleInput = ({name, value}) => {
+        this.setState({
+            [name]:value
+        })
+    }
     handleRegister = () => {
         const {username, password} = this.state;
         axios.post('/api/register', {username, password}).then(res => {
@@ -28,15 +33,17 @@ class Auth extends Component {
     }
 
     render(){
+        console.log('onchange input', this.state)
         return(
             <div>
-                <input
+                <input onChange={(event) => this.handleInput(event.target)}
+                value={this.state.username}
                 placeholder='Enter Username'
                 name='username'/>
-                <input
+                <input onChange={(event) => this.handleInput(event.target)}
+                value={this.state.password}
                 placeholder='Enter Password'
                 name='password'/>
-
                 <button onClick={this.handleLogin}
                 >Login</button>
                 <button onClick={this.handleRegister}>Register</button>

@@ -2,20 +2,21 @@ const bcrypt = require('bcryptjs');
 
 module.exports={
     login: async(req,res) => {
+       
         const {username, password}=req.body
         const {session} = req
         const db = req.app.get('db')
 
-        let users = await db.auth.check_user(username)
-        users = users[0]
-        if(!users) {
+        let users = await db.check_user(username)
+        const user = users[0]
+        if(!user) {
             return res.status(400).send('Email not found')
         }
-        const authenticated = bcrypt.compareSync(password, users.password);
+        const authenticated = bcrypt.compareSync(password, user.password);
         if(authenticated){
-            delete users.password
-            session.users=users;
-            res.status(202).send(session.users)
+            delete user.password
+            session.user=user;
+            res.status(202).send(session.user)
         }else {
             res.status(401).send('Incorrect Password')
         }

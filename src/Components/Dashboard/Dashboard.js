@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import Post from '/Post'
+import Post from '../Post/Post'
 import axios from 'axios'
 
 class Dashboard extends Component {
@@ -26,6 +26,7 @@ class Dashboard extends Component {
     }
 
     render(){
+        console.log(this.props)
         const mappedPosts = this.state.posts.map((post, index) =>{
             return (
                 <Post key={index} post={post}/>
@@ -45,5 +46,6 @@ class Dashboard extends Component {
 }
 const mapStateToProps = (reduxState) => {
     return reduxState
+}
 
 export default connect(mapStateToProps)(Dashboard);

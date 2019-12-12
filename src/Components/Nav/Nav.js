@@ -3,7 +3,12 @@ import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 
 class Nav extends Component {
+    constructor(props){
+        super(props)
+    }
+    
     render(){
+        console.log('nav', this.props)
         return(
             <div>
                 <Link to='/dashboard'>Home</Link>
@@ -19,4 +24,4 @@ class Nav extends Component {
 const mapStateToProps = (reduxState) => {
     return reduxState
 }
-export default connect(mapStateToProps(Nav))
+export default connect(mapStateToProps)(Nav)

@@ -8,23 +8,20 @@ import Nav from './Components/Nav/Nav';
 import './App.css';
 
 function App(props) {
+  console.log('props', props)
   return (
-    <Provider store={store}>
-    <HashRouter>
+      
     <div className="App">
-      {props.location.pathname === '/' || 
-      props.location.pathname === '/components/nav/nav'
+
+      {props.location.pathname === '/'
       ? (<>
       {routes}
       </>)
-      : (<>
+      : (<> 
       <Nav/>
       {routes}
       </>)}
     </div>
-    </HashRouter>
-    </Provider>
-    
   );
 }
 
